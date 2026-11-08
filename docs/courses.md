@@ -1,4 +1,4 @@
-# Semester Project Overview
+# Semester Project Summary 
 
 ## Context & project description
 For a C++ development course in my home university, I had to make a simple working game using C++ and SFML. 
@@ -11,7 +11,7 @@ The main goal is to program only components that we can attach to gameObject to 
 
 ## Patterns used so far
 
-* **Composite** (Transform / GameObject)
+### Creational
 * **Factory Method** (GameObject Factory)
 * **Factory + self registration ??** (components)
   * a new Component class self register to the ComponentFactory with :
@@ -20,14 +20,36 @@ The main goal is to program only components that we can attach to gameObject to 
         return std::make_unique<Animator>(node.attribute("src").as_string());
      });
     ```
+  
+### Structural
+* **Composite** (Transform / GameObject)
+
 
 ## Pattern that may be used in the future:
-* **Template Method** → onEnable(), onDisable(), Awake(), Start()
-  * solves a need to clearly separate multiple wave of action (first building everything, then enabling everything, then starting everything, etc)  
-* **Prototype** →  clone on GameObject/Component
+### Creational
+* **Abstract Factory**
+  * maybe Scene GameObjects and Components can all be constructed by a big SceneFactory
+  * This can also encapsulate the `pugi::xml` dependency that `Scene` has right now.
+* **Prototype**
   * at the moment if you put 2 prefab line in the XML scene, the program will read the prefab's XML file twice to build twice the same thing or almost the same thing
   * file reading is **very heavy** in performance 
-* _Command for animation events ?_
+
+### Behavioural
+* **Template Method** → onEnable(), onDisable(), Awake(), Start()
+  * solves a need to clearly separate multiple wave of action (first building everything, then enabling everything, then starting everything, etc)  
+* _Command for animation events ?_ (not sure)
   * it works with registered lambda on a frame
-* Flyweight everywhere
-  * in particular for textures
+
+### Structural
+* **Flyweight**
+  * there is a need of that pattern basically everywhere, but in particular for textures
+---
+
+
+* Other idea may come later
+* UI library (`TGUI`) is not encapsulated at all → maybe find something to fix that
+
+## Git
+
+Project's remote is here so far, it will be mirrored on the UNIZA Gitlab in the future.
+https://github.com/AntoFruch/PatternFactory

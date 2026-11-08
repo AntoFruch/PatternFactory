@@ -1,0 +1,40 @@
+@startuml inputSystem
+namespace InputSystem{
+
+    class InputManager{
+        - stringToKey : map<string, sf::Keyboard::Key>
+        - {static} actions : map<string, unique_ptr<InputAction>
+        - {static} pressed_key : set<Keyboard::Key>
+
+        + {static} init() : void
+        + {static} findAction(name: string) : InputAction*
+        + {static} beginFrame() : void
+        + {static} processEvents() : void
+        - {static} loadActions() : void
+    }
+
+    class InputAction{
+        - label : string
+        - value : variant<bool, Vector2f>
+        - pressedThisFrame : bool
+        - bindings :
+
+        + InputAction(label: string, bindings: );
+        + resetFrameState() : void
+        + processEvents() : void
+        + wasPerformedThisFrame() : bool
+        + ReadValue<T>() : T
+    }
+    note right of InputAction::resetFrameState
+        FIXME: make private,
+        set manager as friend
+    end note
+
+    note bottom of InputAction
+            FIXME: add mouse input,
+    end note
+
+    InputManager --* InputAction
+}
+
+@enduml

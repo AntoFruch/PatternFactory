@@ -1,0 +1,26 @@
+@startuml classDiagram
+!include renderSystem.puml
+!include sceneSystem.puml
+!include inputSystem.puml
+!include components.puml
+
+class Game {
+   + Game()
+   + run() : void
+   - processEvents() : void
+   - update() : void
+   - render() : void
+
+   - scene : std:unique_ptr<Scene>
+   - mWindow : RenderWindow
+}
+
+Game --* Scene
+Game "uses" ..> SceneManager
+Game "uses" ..> InputSystem.InputManager
+Game "uses" ..> RenderSystem.RenderManager
+
+GameObject --* ComponentsSystem.Component
+Renderer --|> ComponentsSystem.Component
+
+@enduml

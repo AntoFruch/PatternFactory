@@ -1,6 +1,6 @@
 add_library(lib_assets
-    start.cpp
-    start.h
+        scripts/CameraBehaviour.cpp
+        scripts/CameraBehaviour.h
 )
 
 target_include_directories(lib_assets PUBLIC .)

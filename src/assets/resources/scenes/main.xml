@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-
+    <Prefab src="resources/prefabs/background.xml"/>
+    <GameObject label="Camera">
+        <Components>
+            <Component name="Camera"/>
+            <Component name="CameraBehaviour" speed="300"/>
+        </Components>
+    </GameObject>
 </Scene>

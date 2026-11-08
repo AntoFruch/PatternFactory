@@ -1,0 +1,22 @@
+@startuml objects
+namespace ComponentsSystem {
+    class ComponentFactory{
+        + {static} Register(name: string, func: CreatorFunc) : bool
+        + {static} Create(name : string, xml_node) : unique_ptr<Component>
+    }
+    note right of ComponentFactory::Register
+           CreatorFunc = lambda
+           returns a component from
+           a xml_node
+    end note
+
+    abstract class Component{
+        + gameObject : GameObject*
+        + {abstract} Start() : void
+        + {abstract} Update(elapsedTime: sf:Time) : void
+        + setParent(GameObject*) : void
+    }
+
+   ComponentFactory "creates" --> Component
+}
+@enduml

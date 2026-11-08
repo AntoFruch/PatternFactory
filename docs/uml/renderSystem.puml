@@ -1,0 +1,36 @@
+@startuml renderSystem
+
+namespace RenderSystem {
+    class RenderManager{
+        - {static} mRenderers : std::vector<Renderer*>
+        - {static} window : RenderWindow*
+        - {static} mainCamera : Camera*
+
+        + {static} init(RenderWindow*) : void
+        + {static} closeWindow() : void
+        + {static} registerRenderer(Renderer*) : void
+        + {static} unregisterRenderer(Renderer*) : void
+        + {static} renderAll() : void
+        + {static} setMainCamera(Camera*) : void
+        + {static} unsetMainCamera(Camera*) : void
+        + {static} handleResize(size: sf::Vector2u) : void
+    }
+
+    class Renderer{
+        - mShape : sf::RectangleShape
+        - texture : sf::Texture
+        - spriteSize : sf::Vector2u
+        - cutRect : sf::IntRect
+        - layer : int
+        - sortOffsetY : float
+
+        + Renderer(args)
+        + render(win: RenderWindow) : void
+        + setCutRectPos(x, y: unsigned int)
+
+        - {static} s_registered: bool
+    }
+
+    RenderManager "keeps references"--o Renderer
+}
+@enduml

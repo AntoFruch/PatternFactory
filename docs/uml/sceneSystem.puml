@@ -1,0 +1,86 @@
+@startuml sceneSystem
+
+namespace SceneSystem {
+    class SceneManager{
+        + {static} scene : Scene*
+        + {static} loadingReq : bool
+        + {static} reqScenePath : string
+
+        + {static} init(Scene*) : void
+        + {static} Update(elapsedTime : sf::Time)
+        + {static} requestLoading(scene_path: string) : void
+        + {static} instantiate(prefab_path: string) : GameObject*
+        - {static} applyRequest() : void
+    }
+
+    class Scene{
+        - mGui : tgui::Gui
+        - mObjects : std::vector<unique_ptr<GameObject>>
+        - requestedGOs : std::vector<unique_ptr<GameObject>>
+
+        + Scene(RenderWindow)
+        + Start() : void
+        + Update(elapsedTime : sf::Time) : void
+        + load(path: string) : void
+        + unload() : void
+        + requestInstantiate(path: string) : GameObject*
+        + applyInstantiate() : void
+
+        - open_prefab() : xml_node
+    }
+
+    class GameObjectFactory {
+        + {static} buildGameObject(xml_node) : unique_ptr<GameObject>
+    }
+    note left of GameObjectFactory
+      only one method
+      seems overkill
+    end note
+
+    class GameObject{
+        - components : std::vector<unique_ptr<Component>>
+        - active : bool
+        - waitingDestruction : bool
+        + transform : Transform
+
+        + GameObject(args)
+        + start() void
+        + update(elapsedTime: sf:Time) : void
+        + addComponent(unique_ptr<Component>) : void
+        + getComponent<T>() : T*
+        + setActive(bool) : void
+        + destroySelf();
+    }
+
+    class Transform {
+        - position : sf::Vector2f
+        - rotation : sf::Angle
+        - scale : sf::Vector2f
+        - children : std::vector<Transform*>
+
+        + Transform()
+        + Transform(pos, rot, sca)
+        + getLocalPosition() : sf::Vector2f
+        + getLocalRotation() : sf::Angle
+        + getLocalScale() : sf::Vector2f
+        + getWorldPosition() : sf::Vector2f
+        + getWorldRotation() : sf::Angle
+        + getWorldScale() : sf::Vector2f
+        + setLocalPosition() : sf::Vector2f
+        + setLocalRotation() : void
+        + setLocalScale() : void
+        + move() : void
+        + rotate() : void
+        + rescale() : void
+    }
+
+    GameObjectFactory "creates"--> GameObject
+
+    GameObject --* Transform
+    Transform --o Transform
+
+    SceneManager --o Scene
+    Scene --* GameObject
+}
+
+@enduml

@@ -12,6 +12,7 @@ namespace ComponentsSystem {
 
     abstract class Component{
         + gameObject : GameObject*
+        + {abstract} OnEnable() : void
         + {abstract} Start() : void
         + {abstract} Update(elapsedTime: sf:Time) : void
         + setParent(GameObject*) : void

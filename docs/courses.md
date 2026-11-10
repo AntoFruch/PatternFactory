@@ -53,3 +53,9 @@ The main goal is to program only components that we can attach to gameObject to 
 
 Project's remote is here so far, it will be mirrored on the UNIZA Gitlab in the future.
 https://github.com/AntoFruch/PatternFactory
+
+
+## Questions
+ * dependency injection ??
+   * for self registration
+   * to replace my static Managers

@@ -29,6 +29,12 @@ namespace SceneSystem {
         - open_prefab() : xml_node
     }
 
+    note left of Scene::Start
+        Template method:
+            1 - enable all mObjects element
+            2 - start all mObjects element
+    endnote
+
     class GameObjectFactory {
         + {static} buildGameObject(xml_node) : unique_ptr<GameObject>
     }

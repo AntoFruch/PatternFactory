@@ -1,0 +1,1 @@
+pandoc -f markdown+lists_without_preceding_blankline -t pdf doc-template-en.md -o doc-template-en.pdf

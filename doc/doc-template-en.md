@@ -80,8 +80,9 @@ The main goal is to assemble scene and gameObjects in XML and program only compo
 The following design patterns are used in the semestral project:
 - Dependency Injection
 - Builder / Abstract Factory
+- Prototype
 - Template Method
-- 
+- Observer
 - Composite
 - FlyWeight
 
@@ -106,13 +107,23 @@ Then use the builder to build a new Scene object.
 Also GameObjects are complex objects, with lot of attributes etc.
 So the Builder patter may be useful inside the factory.
 
-## Behavioral
-### Behavioral Pattern 1
-* **Template Method** → onEnable(), onDisable(), Awake(), Start()
-    * solves a need to clearly separate multiple wave of action (first building everything, then enabling everything, then starting everything, etc)
+### Prototype
+A premade gameObject template must be kept in memory after being read for the first time, 
+then it is easy to clone it to instantiate it again without parsing an XML file again.    
 
-### Behavioral Pattern 2
-*Description of the 2nd behavioral pattern.*
+## Behavioral
+### Template Method
+onEnable(), onDisable(), Awake(), Start(). <br>
+Solves a need to clearly separate multiple wave
+of action (first building everything, then enabling everything, then starting everything, etc)
+
+### Observer
+In the collision system :
+* **Observable** : Collider
+* **Observer** : The trigger std::function (as it captures the scope from anyone that register 
+that std:function, it is like anyone could be the Observer)
+* **Subscription** is made via `Collider::setTriggerCallback(...)`
+* **Notification** `Collider::update()` looks if the trigger is triggered, and execute the function if needed. Doing so, the object that registered the callback does not need to know the trigger has been executed. 
 
 
 ## Structural

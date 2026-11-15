@@ -131,8 +131,7 @@ that std:function, it is like anyone could be the Observer)
 Used to define hierarchy between gameObject via their Transforms
 
 ### FlyWeight Pattern 
-Need for that pattern to avoid parsing multiple times the same prefab file. 
-Must be combined with Prototype design pattern.<br>
+For texture management, at the moment each renderer has is own instance of a texture, which is a waste of memory.<br>
 FlyWeight is already used for animation trees, they are parsed and built 
 only once, then stored in an unordered map once built. As it is pure 
 constant data, one tree can be shared and used by multiple animated object.  

@@ -33,6 +33,7 @@ class GameContext <<Singleton>> {
 Game "uses" ..> GameContext
 
 GameContext --* RenderSystem.RenderManager
+GameContext --* RenderSystem.TextureManager
 GameContext --* InputSystem.InputManager
 GameContext --* SceneSystem.SceneManager
 

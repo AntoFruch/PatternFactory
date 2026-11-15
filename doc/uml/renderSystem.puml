@@ -1,6 +1,15 @@
 @startuml renderSystem
 
 namespace RenderSystem {
+
+    class TextureManager{
+        - mTextures : std::map<std::string, sf::Texture>
+
+        + TextureManager()
+        + getTexture(name: std::string) : sf::Texture&
+        - loadTexture(name: std::string, path: std::string) : void
+    }
+
     class RenderManager{
         - mRenderers : std::vector<Renderer*>
         - mainCamera : Camera*

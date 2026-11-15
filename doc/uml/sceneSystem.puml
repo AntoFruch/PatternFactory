@@ -29,9 +29,17 @@ namespace SceneSystem {
     endnote
 
     abstract class SceneBuilder{
+        + prefabRegistry : map<string, vector<GameObject>>
+
         + {abstract} buildScene(filepath: string): void
         + {abstract} buildPrefab(filepath: string) : vector<GameObject>
     }
+    note right of SceneBuilder::prefabRegistry
+        prefabRegistry stores prototypes
+        of prefab that were instantiated
+        before, so there is no need to
+        parse the prefab file again.
+    endnote
 
     class XMLSceneBuilder{
         - buildGameObject(xml_node) : vector<GameObject>
@@ -52,6 +60,7 @@ namespace SceneSystem {
         + getComponent<T>() : T*
         + setActive(bool) : void
         + destroySelf();
+        + clone() : vector<GameObject>
     }
 
     class Transform {

@@ -7,7 +7,7 @@
 
 #include "Engine.h"
 
-class CameraBehaviour : public Component
+class CameraBehaviour : public ComponentBase<CameraBehaviour>
 {
     const float speed;
     InputAction* moveAction;

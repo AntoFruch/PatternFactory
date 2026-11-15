@@ -38,7 +38,7 @@ GameContext --* SceneSystem.SceneManager
 
 SceneSystem.SceneBuilder "uses" --> ComponentsSystem.ComponentFactory
 
-GameObject --* ComponentsSystem.Component
-Renderer --|> ComponentsSystem.Component
+GameObject --* ComponentsSystem.ComponentBase
+Renderer --|> ComponentsSystem.ComponentBase
 
 @enduml

@@ -10,14 +10,28 @@ namespace ComponentsSystem {
            a xml_node
     end note
 
+
+    class ComponentBase<T> <<template>> {
+        + clone() : unique_ptr<T>
+    }
+    note left of ComponentBase::clone
+        C++ CRTP (Curiously Recurring Template Pattern)
+        is used here to avoid users having to implement
+        clone() for each component. Each new component
+        type should extend this class, with itself as
+        the template type.
+    end note
+
     abstract class Component{
         + gameObject : GameObject*
+        + setParent(GameObject*) : void
         + {abstract} OnEnable() : void
         + {abstract} Start() : void
         + {abstract} Update(elapsedTime: sf:Time) : void
-        + setParent(GameObject*) : void
+        + {abstract} clone() : unique_ptr<Component>
     }
 
+   ComponentBase --|> Component
    ComponentFactory "creates" --> Component
 }
 @enduml

@@ -4,6 +4,8 @@
 !include inputSystem.puml
 !include components.puml
 
+skinparam linetype ortho
+
 class Game {
    + Game()
    + run() : void
@@ -15,10 +17,26 @@ class Game {
    - mWindow : RenderWindow
 }
 
-Game --* Scene
-Game "uses" ..> SceneManager
-Game "uses" ..> InputSystem.InputManager
-Game "uses" ..> RenderSystem.RenderManager
+class GameContext <<Singleton>> {
+    - mWindow : RenderWindow
+    - mSceneManager : SceneManager
+    - mRenderer : Renderer
+    - mInputManager : InputManager
+
+    + instance() : GameContext&
+    + getWindow() : RenderWindow*
+    + scene_manager() : SceneManager*
+    + render_manager() : Renderer*
+    + input_manager() : InputManager*
+}
+
+Game "uses" ..> GameContext
+
+GameContext --* RenderSystem.RenderManager
+GameContext --* InputSystem.InputManager
+GameContext --* SceneSystem.SceneManager
+
+SceneSystem.SceneBuilder "uses" --> ComponentsSystem.ComponentFactory
 
 GameObject --* ComponentsSystem.Component
 Renderer --|> ComponentsSystem.Component

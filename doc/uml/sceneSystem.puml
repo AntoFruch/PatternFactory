@@ -1,32 +1,25 @@
 @startuml sceneSystem
 
 namespace SceneSystem {
-    class SceneManager{
-        + {static} scene : Scene*
-        + {static} loadingReq : bool
-        + {static} reqScenePath : string
-
-        + {static} init(Scene*) : void
-        + {static} Update(elapsedTime : sf::Time)
-        + {static} requestLoading(scene_path: string) : void
-        + {static} instantiate(prefab_path: string) : GameObject*
-        - {static} applyRequest() : void
-    }
 
     class Scene{
-        - mGui : tgui::Gui
-        - mObjects : std::vector<unique_ptr<GameObject>>
-        - requestedGOs : std::vector<unique_ptr<GameObject>>
+        - mObjects : vector<GameObject>
 
-        + Scene(RenderWindow)
+        + Scene(vector<GameObject>)
         + Start() : void
         + Update(elapsedTime : sf::Time) : void
-        + load(path: string) : void
-        + unload() : void
-        + requestInstantiate(path: string) : GameObject*
-        + applyInstantiate() : void
+        + instantiate(vector<GameObject>) : void
+    }
 
-        - open_prefab() : xml_node
+    class SceneManager {
+        - scene : Scene
+        - builder : SceneBuilder
+        - requestedScene : string
+        - requestedGOs : vector<GameObject>
+
+        + SceneManager(builder: SceneBuilder)
+        + requestLoading(path: string) : void
+        - applyLoadingRequest() : void
     }
 
     note left of Scene::Start
@@ -35,13 +28,16 @@ namespace SceneSystem {
             2 - start all mObjects element
     endnote
 
-    class GameObjectFactory {
-        + {static} buildGameObject(xml_node) : unique_ptr<GameObject>
+    abstract class SceneBuilder{
+        + {abstract} buildScene(filepath: string): void
+        + {abstract} buildPrefab(filepath: string) : vector<GameObject>
     }
-    note left of GameObjectFactory
-      only one method
-      seems overkill
-    end note
+
+    class XMLSceneBuilder{
+        - buildGameObject(xml_node) : vector<GameObject>
+    }
+
+    XMLSceneBuilder --|> SceneBuilder
 
     class GameObject{
         - components : std::vector<unique_ptr<Component>>
@@ -64,28 +60,33 @@ namespace SceneSystem {
         - scale : sf::Vector2f
         - children : std::vector<Transform*>
 
-        + Transform()
-        + Transform(pos, rot, sca)
+        + Transform(pos, rot, sca, gameObject)
+        + addChild(child: Transform*) : void
+
         + getLocalPosition() : sf::Vector2f
         + getLocalRotation() : sf::Angle
         + getLocalScale() : sf::Vector2f
+
         + getWorldPosition() : sf::Vector2f
         + getWorldRotation() : sf::Angle
         + getWorldScale() : sf::Vector2f
+
         + setLocalPosition() : sf::Vector2f
         + setLocalRotation() : void
         + setLocalScale() : void
+
         + move() : void
         + rotate() : void
         + rescale() : void
     }
 
-    GameObjectFactory "creates"--> GameObject
+    SceneBuilder "creates" --> Scene
+    SceneManager --* Scene
+    SceneManager --* SceneBuilder
 
     GameObject --* Transform
     Transform --o Transform
 
-    SceneManager --o Scene
     Scene --* GameObject
 }
 

@@ -1,0 +1,15 @@
+stages:
+  - mirror
+
+sync_to_github:
+  stage: mirror
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache git
+  script:
+    - echo "Cloning repository and pushing to GitHub..."
+    - git remote add github https://${GITHUB_TOKEN}@github.com/AntoFruch/PatternFactory.git
+    - git fetch github --unshallow || true
+    - git push github HEAD:${CI_COMMIT_REF_NAME} --force
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'

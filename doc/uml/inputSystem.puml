@@ -2,15 +2,14 @@
 namespace InputSystem{
 
     class InputManager{
-        - stringToKey : map<string, sf::Keyboard::Key>
-        - {static} actions : map<string, unique_ptr<InputAction>
-        - {static} pressed_key : set<Keyboard::Key>
+        - actions : map<string, unique_ptr<InputAction>
+        - pressed_key : set<Keyboard::Key>
 
-        + {static} init() : void
-        + {static} findAction(name: string) : InputAction*
-        + {static} beginFrame() : void
-        + {static} processEvents() : void
-        - {static} loadActions() : void
+        + InputManager(configFile: string)
+        + findAction(name: string) : InputAction*
+        + beginFrame() : void
+        + processEvents() : void
+        - loadActions() : void
     }
 
     class InputAction{
@@ -25,13 +24,9 @@ namespace InputSystem{
         + wasPerformedThisFrame() : bool
         + ReadValue<T>() : T
     }
-    note right of InputAction::resetFrameState
-        FIXME: make private,
-        set manager as friend
-    end note
 
     note bottom of InputAction
-            FIXME: add mouse input,
+            FIXME: add mouse input, maybe
     end note
 
     InputManager --* InputAction

@@ -1,21 +1,21 @@
 <GameObject label="map"
             x="-200" y="200"
             >
-    <GameObject sx="10" sy="10">
-        <Components>
-            <Component name="Renderer"
-                       src="resources/water.png"
-                       sprite_w="512" sprite_h="512"
-                       anchorX="0" anchorY="0"
-                       layer="0"
-            />
-        </Components>
-    </GameObject>
     <GameObject sx="0.7" sy="0.7">
         <Components>
             <Component name="Renderer"
                        src="resources/island.png"
                        sprite_w="832" sprite_h="768"
+                       anchorX="0" anchorY="0"
+                       layer="0"
+            />
+        </Components>
+    </GameObject>
+    <GameObject sx="10" sy="10">
+        <Components>
+            <Component name="Renderer"
+                       src="resources/water.png"
+                       sprite_w="512" sprite_h="512"
                        anchorX="0" anchorY="0"
                        layer="0"
             />

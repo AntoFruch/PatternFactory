@@ -2,18 +2,18 @@
 
 namespace RenderSystem {
     class RenderManager{
-        - {static} mRenderers : std::vector<Renderer*>
-        - {static} window : RenderWindow*
-        - {static} mainCamera : Camera*
+        - mRenderers : std::vector<Renderer*>
+        - mainCamera : Camera*
+        - window : RenderWindow*
+        - gui : Gui*
 
-        + {static} init(RenderWindow*) : void
-        + {static} closeWindow() : void
-        + {static} registerRenderer(Renderer*) : void
-        + {static} unregisterRenderer(Renderer*) : void
-        + {static} renderAll() : void
-        + {static} setMainCamera(Camera*) : void
-        + {static} unsetMainCamera(Camera*) : void
-        + {static} handleResize(size: sf::Vector2u) : void
+        + RenderManager(RenderWindow*, Gui*)
+        + registerRenderer(Renderer*) : void
+        + unregisterRenderer(Renderer*) : void
+        + renderAll() : void
+        + setMainCamera(Camera*) : void
+        + unsetMainCamera(Camera*) : void
+        + handleResize(size: sf::Vector2u) : void
     }
 
     class Renderer{

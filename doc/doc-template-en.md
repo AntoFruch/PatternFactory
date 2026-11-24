@@ -109,7 +109,15 @@ So the Builder patter may be useful inside the factory.
 
 ### Prototype
 A premade gameObject template must be kept in memory after being read for the first time, 
-then it is easy to clone it to instantiate it again without parsing an XML file again.    
+then it is easy to clone it to instantiate it again without parsing an XML file again.  
+
+### Modified Singleton with RAII
+`GameContext` class is a sort of Singleton that holds managers and global app data.<br>
+This class has been made so the all the data does not depend on a static instance.
+First the instance is instantiated in `Game` after the window is created, then it is 
+destroyed in `Game` destructor before the window (and the OpenGL context). So we dont 
+have to worry about the order of destruction of static objects and the OpenGL context.
+Then the pointer is stored as static pointer in the class so `GameContext` behaves like a Singleton
 
 ## Behavioral
 ### Template Method
@@ -134,7 +142,7 @@ Used to define hierarchy between gameObject via their Transforms
 For texture management, at the moment each renderer has is own instance of a texture, which is a waste of memory.<br>
 FlyWeight is already used for animation trees, they are parsed and built 
 only once, then stored in an unordered map once built. As it is pure 
-constant data, one tree can be shared and used by multiple animated object.  
+constant data, one tree can be shared and used by multiple animated object.
 
 \clearpage
 # Implementation
@@ -185,4 +193,3 @@ int main() {
 
 \clearpage
 # User Guide
-*In this section, describe how your application is used.*

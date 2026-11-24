@@ -10,7 +10,7 @@
 
 CameraBehaviour::CameraBehaviour(float speed) : speed(speed)
 {
-    moveAction = GameContext::instance().input_manager()->findAction("Move");
+    moveAction = GameContext::instance()->input_manager()->findAction("Move");
 }
 
 void CameraBehaviour::Start()

@@ -5,7 +5,6 @@
 #include "CameraBehaviour.h"
 
 #include "GameContext.h"
-#include "Managers/Input/InputManager.h"
 
 
 CameraBehaviour::CameraBehaviour(float speed) : speed(speed)

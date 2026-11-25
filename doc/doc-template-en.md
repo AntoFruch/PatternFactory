@@ -89,7 +89,7 @@ The following design patterns are used in the semestral project:
 ## Creational
 ### Dependency Injection
 Self registration of Components classes to the Component Factory. 
-(see any component class and [ComponentFactory.h](../src/engine/Managers/Scene/ComponentFactory.h))
+(see any component class and [ComponentFactory.h](../src/engine/Scene/ComponentFactory.h))
 * **Client** : ComponentFactory
 * **Injector** : Component
 * **Service** : component creation lambda function

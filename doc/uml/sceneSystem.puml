@@ -23,12 +23,6 @@ namespace SceneSystem {
         - applyLoadingRequest() : void
     }
 
-    note left of Scene::Start
-        Template method:
-            1 - enable all mObjects element
-            2 - start all mObjects element
-    endnote
-
     class GameObject{
         - components : std::vector<unique_ptr<Component>>
         - active : bool

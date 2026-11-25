@@ -25,7 +25,6 @@ namespace ComponentsSystem {
     abstract class Component{
         + gameObject : GameObject*
         + setParent(GameObject*) : void
-        + {abstract} OnEnable() : void
         + {abstract} Start() : void
         + {abstract} Update(elapsedTime: sf:Time) : void
         + {abstract} clone() : unique_ptr<Component>

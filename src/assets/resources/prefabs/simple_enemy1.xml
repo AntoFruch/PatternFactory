@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<GameObject sx="2.5" sy="2.5">
+    <Components>
+        <Component name="Animator" src="resources/animations/PlayerAnimationTree.xml"/>
+        <Component name="Renderer" src="resources/textures/Soldier-Yellow.png"
+                   sprite_w="32" sprite_h="32"
+                   anchorX="0" anchorY="3"
+                   layer="1"/>
+        <Component name="Collider" x="0" y="0" width="8" height="8"/>
+    </Components>
+</GameObject>

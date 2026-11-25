@@ -1,0 +1,28 @@
+@startuml
+namespace AnimationSystem {
+    class Animator {
+        - renderer: Renderer*
+        - graph: const AnimatorGraph*
+        - currentState: const AnimationState*
+        - parameters: map<string, Parameter>
+        - animationEvents : map<string, AnimationEvent>
+        - currentFrame_x: uint
+        - currentFrame_y: uint
+        - timeCounter: Time
+        + setParam(label: string, value: bool or float ) : void
+        + registerAnimationEvent(state: string, frame: int, cb: EventCallback ) : void
+    }
+
+    class AnimatorGraph{
+        complex syntactic tree
+    }
+
+    class AnimationTreeManager{
+        - registry : map<string, AnimatorGraph>
+        + getOrParse() : AnimatorGraph*
+    }
+
+    AnimationTreeManager *-- AnimatorGraph
+    Animator o-- AnimatorGraph
+}
+@enduml

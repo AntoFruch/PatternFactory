@@ -4,8 +4,7 @@
 !include inputSystem.puml
 !include components.puml
 !include fileParsing.puml
-
-skinparam linetype ortho
+!include animationSystem.puml
 
 class Game {
    + Game()
@@ -50,5 +49,6 @@ GameContext *-- fileParsing.Parser
 Parser "creates"--> SceneSystem.Scene
 GameObject *-- ComponentsSystem.ComponentBase
 Renderer --|> ComponentsSystem.ComponentBase
+Animator --|> ComponentsSystem.ComponentBase
 
 @enduml

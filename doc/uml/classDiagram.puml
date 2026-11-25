@@ -5,6 +5,9 @@
 !include components.puml
 !include fileParsing.puml
 !include animationSystem.puml
+!include collisionsSystem.puml
+
+skinparam linetype ortho
 
 class Game {
    + Game()
@@ -18,17 +21,21 @@ class Game {
 }
 
 class GameContext {
-    - mWindow : RenderWindow
+    - inputManager : InputManager
+    - renderer : Renderer
+    - collisionsManager: CollisionsManager
+    - resourceManager: ResourceManager
+    - animationTreeManager : AnimationTreeManager
     - mSceneManager : SceneManager
-    - mRenderer : Renderer
-    - mInputManager : InputManager
-    - mParser : Parser
+    - parser : Parser
+
+    - window : RenderWindow*
 
     + instance() : GameContext&
-    + getWindow() : RenderWindow*
-    + scene_manager() : SceneManager*
-    + render_manager() : Renderer*
-    + input_manager() : InputManager*
+    + getters1()
+    + getters2()
+    + getters3()
+    + ...()
 }
 
 note left of GameContext::mParser
@@ -40,15 +47,18 @@ endnote
 
 Game *-- GameContext
 
+GameContext *-- fileParsing.Parser
 GameContext *-- RenderSystem.RenderManager
-GameContext *-- RenderSystem.TextureManager
+GameContext *-- RenderSystem.ResourceManager
 GameContext *-- InputSystem.InputManager
 GameContext *-- SceneSystem.SceneManager
-GameContext *-- fileParsing.Parser
-
+GameContext *-- AnimationSystem.AnimationTreeManager
+GameContext *-- CollisionsSystem.CollisionsManager
 Parser "creates"--> SceneSystem.Scene
+
 GameObject *-- ComponentsSystem.ComponentBase
 Renderer --|> ComponentsSystem.ComponentBase
 Animator --|> ComponentsSystem.ComponentBase
+Collider --|> ComponentsSystem.ComponentBase
 
 @enduml

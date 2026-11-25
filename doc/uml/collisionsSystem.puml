@@ -1,0 +1,28 @@
+@startuml
+namespace CollisionsSystem {
+    class CollisionsManager {
+        - solidColliders : vector<Collider*>
+        - triggerColliders: vector<Collider*>
+        + registerCollider(Collider*): void
+        + unRegisterCollider(Collider*): void
+        + move(Collider&, delta: Vector2): Vector2
+        + checkTrigger(Collider*): vector<Collider*>
+
+        + debugDraw(window)
+    }
+
+    class Collider {
+        - hitbox: RectangleShape
+        - localpos: Vector2
+        - trigger: bool
+        - callback: TriggerCallback
+        + setPosition(Vector2): void
+        + setSize(): void
+        + isTrigger(): bool
+        + setTriggerCallback(cb: TriggerCallback): void
+    }
+
+    Collider --o CollisionsManager
+}
+
+@enduml

@@ -2,10 +2,10 @@
 
 namespace RenderSystem {
 
-    class TextureManager{
-        - mTextures : std::map<std::string, sf::Texture>
+    class ResourceManager{
+        - textures : std::map<std::string, sf::Texture>
+        - fonts : std::map<std::string, tgui::Font>
 
-        + TextureManager()
         + getTexture(name: std::string) : sf::Texture&
         - loadTexture(name: std::string, path: std::string) : void
     }
@@ -41,6 +41,6 @@ namespace RenderSystem {
     }
 
     RenderManager "keeps pointers" o-- Renderer
-    Renderer "fetches textures" --> TextureManager
+    Renderer "fetches textures from" --> ResourceManager
 }
 @enduml

@@ -40,6 +40,7 @@ namespace RenderSystem {
         - {static} s_registered: bool
     }
 
-    RenderManager "keeps references"--o Renderer
+    RenderManager "keeps pointers" o-- Renderer
+    Renderer "fetches textures" --> TextureManager
 }
 @enduml

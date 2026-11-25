@@ -1,0 +1,26 @@
+@startuml fileParsing
+namespace fileParsing{
+
+    interface Parser {
+        + {abstract} parseScene(filepath: string, prefabManager: PrefabManager): Scene
+        + {abstract} parsePrefab(filepath: string) : vector<GameObject>
+
+        + {abstract} parseInputActions(filepath: string) : std::vector<InputAction>
+
+        + {abstract} parseAnimationTree(filepath: string) : AnimationTree
+    }
+
+    class XMLParser
+
+    XMLParser --|> Parser
+    JSONParser --|> Parser
+
+    ParserDispatcher --|> Parser
+    note top of ParserDispatcher
+        Dispatcher class that will call
+        the right parser depending on the
+        file extension
+    endnote
+}
+
+@enduml

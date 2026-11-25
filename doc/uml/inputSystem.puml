@@ -29,7 +29,7 @@ namespace InputSystem{
             FIXME: add mouse input, maybe
     end note
 
-    InputManager --* InputAction
+    InputManager *-- InputAction
 }
 
 @enduml

@@ -86,16 +86,13 @@ The following design patterns are used in the semestral project:
 - Composite
 - FlyWeight
 
-*For each design pattern, describe what problem it solved in your project and why*
-*it is suitable for that problem (why you did not use another -- alternative --*
-*design pattern). Use UML diagrams and/or source code samples that show how the*
-*pattern is used in the application.*
-
-
 ## Creational
 ### Dependency Injection
 Self registration of Components classes to the Component Factory. 
 (see any component class and [ComponentFactory.h](../src/engine/Managers/Scene/ComponentFactory.h))
+* **Client** : ComponentFactory
+* **Injector** : Component
+* **Service** : component creation lambda function
 
 ### Builder / AbstractFactory
 The current scene building system has a huge dependency to XML and it mixes game update logic 
@@ -125,14 +122,16 @@ onEnable(), onDisable(), Awake(), Start(). <br>
 Solves a need to clearly separate multiple wave
 of action (first building everything, then enabling everything, then starting everything, etc)
 
+### Strategy 
+Parser detects the file extension and uses the right derived class to handle the parsing (implemented only for XML but it is quite simple to add a new file format)
+
 ### Observer
 In the collision system :
 * **Observable** : Collider
 * **Observer** : The trigger std::function (as it captures the scope from anyone that register 
 that std:function, it is like anyone could be the Observer)
 * **Subscription** is made via `Collider::setTriggerCallback(...)`
-* **Notification** `Collider::update()` looks if the trigger is triggered, and execute the function if needed. Doing so, the object that registered the callback does not need to know the trigger has been executed. 
-
+* **Notification** `Collider::update()` looks if the trigger is triggered, and execute the function if needed. Doing so, the object that registered the callback does not need to know the trigger has been executed.
 
 ## Structural
 ### Composite Pattern
@@ -149,7 +148,7 @@ constant data, one tree can be shared and used by multiple animated object.
 
 
 ## Choice of Programming Language
-C++ with SFML
+C++
 
 ## Third-Party Libraries
 The following libraries and technologies are used in the semestral project:

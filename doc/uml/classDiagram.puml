@@ -3,6 +3,7 @@
 !include sceneSystem.puml
 !include inputSystem.puml
 !include components.puml
+!include fileParsing.puml
 
 skinparam linetype ortho
 
@@ -17,11 +18,12 @@ class Game {
    - mWindow : RenderWindow
 }
 
-class GameContext <<Singleton>> {
+class GameContext {
     - mWindow : RenderWindow
     - mSceneManager : SceneManager
     - mRenderer : Renderer
     - mInputManager : InputManager
+    - mParser : Parser
 
     + instance() : GameContext&
     + getWindow() : RenderWindow*
@@ -30,16 +32,23 @@ class GameContext <<Singleton>> {
     + input_manager() : InputManager*
 }
 
-Game "uses" ..> GameContext
+note left of GameContext::mParser
+    We instantiate a ParserDispatcher
+    here, but by putting another
+    Parser derived class we can
+    lock the parsing behaviour.
+endnote
 
-GameContext --* RenderSystem.RenderManager
-GameContext --* RenderSystem.TextureManager
-GameContext --* InputSystem.InputManager
-GameContext --* SceneSystem.SceneManager
+Game *-- GameContext
 
-SceneSystem.SceneBuilder "uses" --> ComponentsSystem.ComponentFactory
+GameContext *-- RenderSystem.RenderManager
+GameContext *-- RenderSystem.TextureManager
+GameContext *-- InputSystem.InputManager
+GameContext *-- SceneSystem.SceneManager
+GameContext *-- fileParsing.Parser
 
-GameObject --* ComponentsSystem.ComponentBase
+Parser "creates"--> SceneSystem.Scene
+GameObject *-- ComponentsSystem.ComponentBase
 Renderer --|> ComponentsSystem.ComponentBase
 
 @enduml
